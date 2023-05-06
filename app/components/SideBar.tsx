@@ -5,6 +5,7 @@ import { FiLogOut } from "react-icons/fi";
 import { GiIceCube } from "react-icons/gi";
 import { HiOutlineDocumentReport, HiServer, HiUsers } from "react-icons/hi";
 import profile from "../../public/profile_pic.jpg";
+import logo from "../../public/pos_logo.png"
 /**
  *
  *
@@ -17,11 +18,16 @@ const SideBar = () => {
     <>
       {" "}
       <section>
-        <section className="flex text-md-xl mb-3  justify-items-center"></section>
-        <section className="flex text-md-xl mb-3  justify-items-center px-2 border-y py-2">
+        <section className="flex text-md-xl mb-3  justify-items-center">
+          <figure className="flex px-1">
+           <img src={logo.src} alt="pos logo" className="w-[30px]" />
+           <figcaption className="self-center font-bold">Sarorient POS</figcaption>
+          </figure>
+        </section>
+        <section className="flex text-md-xl mb-3  justify-items-center px-2 border-y border-gray-500 py-2">
           <figure className="flex">
             <img src={profile.src} alt="profile picture" className="w-[50px] h-[50px] rounded-[50%]" />
-            <figcaption className="self-center ps-2 text-sm">Abel Tirop</figcaption>
+            <figcaption className="self-center ps-2 text-sm">Tracy</figcaption>
           </figure>
         </section>
         <section className="px-2 ">
