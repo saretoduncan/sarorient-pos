@@ -1,11 +1,12 @@
 "use client";
+import Link from "next/link";
 import { usePathname } from "next/navigation";
 import React from "react";
 import { FiLogOut } from "react-icons/fi";
 import { GiIceCube } from "react-icons/gi";
 import { HiOutlineDocumentReport, HiServer, HiUsers } from "react-icons/hi";
+import logo from "../../public/pos_logo.png";
 import profile from "../../public/profile_pic.jpg";
-import logo from "../../public/pos_logo.png"
 /**
  *
  *
@@ -13,7 +14,7 @@ import logo from "../../public/pos_logo.png"
  */
 const SideBar = () => {
   const pathName = usePathname();
-
+  
   return (
     <>
       {" "}
@@ -31,26 +32,26 @@ const SideBar = () => {
           </figure>
         </section>
         <section className="px-2 ">
-          <section className="flex text-md-xl mb-3 justify-items-center cursor-pointer">
-            <HiServer className="self-center me-1 text-lg" />
+          <Link href="/main/pos" className={`flex text-md-xl mb-3 justify-items-center cursor-pointer rounded ${pathName==='/main/pos'? 'bg-blue-500':''}`}>
+            <HiServer className="self-center mx-1 text-lg" />
             <p className="text-[18px] font-bold">POS</p>
-          </section>
-          <section className="flex  text-md-xl mb-3 cursor-pointer">
-            <GiIceCube className="self-center me-1 text-lg" />
+          </Link>
+          <Link href="/main/products" className={`flex text-md-xl mb-3 justify-items-center cursor-pointer rounded ${pathName==='/main/products'? 'bg-blue-500':''}`}>
+            <GiIceCube className="self-center mx-1 text-lg" />
             <p className="text-[18px] font-bold">Products</p>
-          </section>
-          <section className="flex text-md-xl mb-3 cursor-pointer">
-            <HiUsers className="self-center me-1 text-lg" />
+          </Link>
+          <Link href="" className="flex text-md-xl mb-3 cursor-pointer">
+            <HiUsers className="self-center mx-1 text-lg" />
             <p className="text-[18px] font-bold"> Staff</p>
-          </section>
-          <section className="flex text-md-xl mb-3 cursor-pointer">
-            <HiOutlineDocumentReport className="self-center me-1 text-lg" />
+          </Link>
+          <Link href="" className="flex text-md-xl mb-3 cursor-pointer">
+            <HiOutlineDocumentReport className="self-center mx-1 text-lg" />
             <p className="text-[18px] font-bold">Reports</p>
-          </section>
-          <section className="flex text-md-xl cursor-pointer">
-            <FiLogOut className="self-center me-1 text-lg " />
+          </Link>
+          <Link href="" className="flex text-md-xl cursor-pointer">
+            <FiLogOut className="self-center mx-1 text-lg " />
             <p className="text-[18px] font-bold">Logout</p>
-          </section>
+          </Link>
         </section>{" "}
       </section>
     </>
