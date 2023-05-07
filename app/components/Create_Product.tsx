@@ -1,6 +1,8 @@
 "use client";
 import { SubmitHandler, useForm } from "react-hook-form";
 import { IProduct } from "../interfaces/IProducts";
+import { useProductFormStore } from "@/store";
+import { AiFillCloseCircle } from "react-icons/ai";
 export default function Create_Product() {
   const {
     register,
@@ -8,12 +10,18 @@ export default function Create_Product() {
     formState: { errors },
   } = useForm<IProduct>();
 
+  const closeForm = useProductFormStore((state) => state.toggleForm);
   const handleSubmitProduct: SubmitHandler<IProduct> = (productInfo) => {
     console.log(productInfo);
   };
   return (
     <>
-      <section className="" >
+      <section className="relative">
+        <div className="absolute top-0 right-2">
+          <button onClick={() => closeForm(false)}>
+            <AiFillCloseCircle className="text-red-500 text-[24px]" />
+          </button>
+        </div>
         <h3 className="font-bold text-lg">Add new product</h3>
         <div>
           <form onSubmit={handleSubmit(handleSubmitProduct)}>

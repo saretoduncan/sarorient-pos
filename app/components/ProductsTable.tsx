@@ -1,12 +1,21 @@
+"use client";
 import React from "react";
 import { BiEdit, BiSearchAlt2 } from "react-icons/bi";
 import { RiDeleteBin6Fill } from "react-icons/ri";
 import Create_Product from "./Create_Product";
+import { useProductFormStore } from "@/store";
 const Products_table: React.FC<{}> = () => {
+  const openCreateProductForm = useProductFormStore((state) => state.toggleForm);
+
+  const formState = useProductFormStore.getState().form_open;
   return (
     <>
       <main className="relative h-screen">
-        <section className="absolute top-0 left-0 bottom-0 right-0 bg-[rgba(0,0,0,0.52)] flex justify-center">
+        <section
+          className={`absolute top-0 left-0 bottom-0 right-0 bg-[rgba(0,0,0,0.52)] ${
+            useProductFormStore((state)=>state.form_open) ? "flex" : "hidden"
+          } justify-center`}
+        >
           {" "}
           <div className="my-auto border rounded bg-white p-5">
             <Create_Product />
@@ -29,7 +38,10 @@ const Products_table: React.FC<{}> = () => {
             </div>
           </div>
           <div className="grid">
-            <button className="bg-green-600 px-1 py-1   rounded justify-self-end text-sm">
+            <button
+              className="bg-green-600 px-1 py-1   rounded justify-self-end text-sm font-bold text-white"
+              onClick={()=>openCreateProductForm(true)}
+            >
               Create Products
             </button>
           </div>
