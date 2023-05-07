@@ -5,7 +5,9 @@ import { RiDeleteBin6Fill } from "react-icons/ri";
 import Create_Product from "./Create_Product";
 import { useProductFormStore } from "@/store";
 const Products_table: React.FC<{}> = () => {
-  const openCreateProductForm = useProductFormStore((state) => state.toggleForm);
+  const openCreateProductForm = useProductFormStore(
+    (state) => state.toggleForm
+  );
 
   const formState = useProductFormStore.getState().form_open;
   return (
@@ -13,7 +15,7 @@ const Products_table: React.FC<{}> = () => {
       <main className="relative h-screen">
         <section
           className={`absolute top-0 left-0 bottom-0 right-0 bg-[rgba(0,0,0,0.52)] ${
-            useProductFormStore((state)=>state.form_open) ? "flex" : "hidden"
+            useProductFormStore((state) => state.form_open) ? "flex" : "hidden"
           } justify-center`}
         >
           {" "}
@@ -40,7 +42,7 @@ const Products_table: React.FC<{}> = () => {
           <div className="grid">
             <button
               className="bg-green-600 px-1 py-1   rounded justify-self-end text-sm font-bold text-white"
-              onClick={()=>openCreateProductForm(true)}
+              onClick={() => openCreateProductForm(true)}
             >
               Create Products
             </button>
@@ -53,8 +55,8 @@ const Products_table: React.FC<{}> = () => {
                 <th className="text-start">Product Name</th>
                 <th className="text-start">Code</th>
                 <th className="text-start">Brand</th>
-                <th className="text-start">Selling Price</th>
-                <th className="text-start">Best Price</th>
+                <th className="text-start">Buying Price(ksh)</th>
+                <th className="text-start">Price(ksh)</th>
                 <th className="text-start">Qty</th>
                 <th className="text-start">Unit</th>
 
