@@ -1,18 +1,22 @@
 "use client";
 import { SubmitHandler, useForm } from "react-hook-form";
-
+import { IProduct } from "../interfaces/IProducts";
 export default function Create_Product() {
   const {
     register,
     handleSubmit,
     formState: { errors },
-  } = useForm<any>();
+  } = useForm<IProduct>();
+
+  const handleSubmitProduct: SubmitHandler<IProduct> = (productInfo) => {
+    console.log(productInfo);
+  };
   return (
     <>
-      <section className="">
-        <h3>Add new product</h3>
+      <section className="" >
+        <h3 className="font-bold text-lg">Add new product</h3>
         <div>
-          <form>
+          <form onSubmit={handleSubmit(handleSubmitProduct)}>
             <div className="flex flex-col mb-3">
               <label htmlFor="productName">Product Name</label>
               <input
@@ -21,109 +25,109 @@ export default function Create_Product() {
                 type="text"
                 required
                 className=" border border-gray-200 rounded focus:outline-none focus:ring focus:border-blue-500 focus:rounded-sm "
-                {...register("productName", {
+                {...register("product", {
                   required: true,
                 })}
               />
-              {/* {errors.username && (
-                  <span className="text-red-500 text-sm">
-                    {errors.username.message}
-                  </span>
-                )} */}
+              {errors.product && (
+                <span className="text-red-500 text-sm">
+                  {errors.product.message}
+                </span>
+              )}
             </div>
             <div className="flex flex-col mb-3">
-              <label htmlFor="productCode">Product Name</label>
+              <label htmlFor="productCode">Product Code</label>
               <input
                 placeholder="Product Code"
                 id="productCode"
                 type="text"
                 required
                 className=" border border-gray-200 rounded focus:outline-none focus:ring focus:border-blue-500 focus:rounded-sm "
-                {...register("productCode", {
+                {...register("code", {
                   required: true,
                 })}
               />
-              {/* {errors.username && (
-                  <span className="text-red-500 text-sm">
-                    {errors.username.message}
-                  </span>
-                )} */}
+              {errors.code && (
+                <span className="text-red-500 text-sm">
+                  {errors.code.message}
+                </span>
+              )}
             </div>
 
             <div className="flex flex-col mb-3">
-              <label htmlFor="productBrand">Product Name</label>
+              <label htmlFor="productBrand">Product Brand</label>
               <input
                 placeholder="Product Brand"
                 id="productName"
                 type="text"
                 required
                 className=" border border-gray-200 rounded focus:outline-none focus:ring focus:border-blue-500 focus:rounded-sm "
-                {...register("productBrand", {
+                {...register("brand", {
                   required: true,
                 })}
               />
-              {/* {errors.username && (
-                  <span className="text-red-500 text-sm">
-                    {errors.username.message}
-                  </span>
-                )} */}
+              {errors.brand && (
+                <span className="text-red-500 text-sm">
+                  {errors.brand.message}
+                </span>
+              )}
             </div>
 
             <div className="flex flex-col mb-3">
-              <label htmlFor="buyingPrice">Product Name</label>
+              <label htmlFor="buyingPrice">Buying Price</label>
               <input
                 placeholder="Buying Price"
                 id="buyingPrice"
                 type="number"
                 required
                 className=" border border-gray-200 rounded focus:outline-none focus:ring focus:border-blue-500 focus:rounded-sm "
-                {...register("productName", {
+                {...register("buyingPrice", {
                   required: true,
                 })}
               />
-              {/* {errors.username && (
-                  <span className="text-red-500 text-sm">
-                    {errors.username.message}
-                  </span>
-                )} */}
+              {errors.buyingPrice && (
+                <span className="text-red-500 text-sm">
+                  {errors.buyingPrice.message}
+                </span>
+              )}
             </div>
 
             <div className="flex flex-col mb-3">
-              <label htmlFor="price">Product Name</label>
+              <label htmlFor="price">Price</label>
               <input
                 placeholder="price"
                 id="price"
                 type="number"
                 required
                 className=" border border-gray-200 rounded focus:outline-none focus:ring focus:border-blue-500 focus:rounded-sm "
-                {...register("productName", {
+                {...register("price", {
                   required: true,
                 })}
               />
-              {/* {errors.username && (
-                  <span className="text-red-500 text-sm">
-                    {errors.username.message}
-                  </span>
-                )} */}
+              {errors.price && (
+                <span className="text-red-500 text-sm">
+                  {errors.price.message}
+                </span>
+              )}
             </div>
 
             <div className="flex flex-col mb-3">
-              <label htmlFor="productQuantity">Product Name</label>
+              <label htmlFor="productQuantity">Quantity</label>
               <input
                 placeholder="Quantity"
                 id="productQuantity"
                 type="number"
                 required
                 className=" border border-gray-200 rounded focus:outline-none focus:ring focus:border-blue-500 focus:rounded-sm "
-                {...register("productName", {
+                {...register("quantity", {
                   required: true,
                 })}
               />
-              {/* {errors.username && (
-                  <span className="text-red-500 text-sm">
-                    {errors.username.message}
-                  </span>
-                )} */}
+              {errors.quantity && (
+                <span className="text-red-500 text-sm">
+                  {errors.quantity.message}
+                </span>
+              )}
             </div>
 
             <div>
@@ -131,7 +135,7 @@ export default function Create_Product() {
                 type="submit"
                 className="bg-blue-600 rounded text-white py-1 w-full"
               >
-                Login
+                Create Product
               </button>
             </div>
           </form>

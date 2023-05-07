@@ -5,10 +5,14 @@ import Create_Product from "./Create_Product";
 const Products_table: React.FC<{}> = () => {
   return (
     <>
-      <main className="relative">
-        <section className="p"></section>
-        <Create_Product/>
-        
+      <main className="relative h-screen">
+        <section className="absolute top-0 left-0 bottom-0 right-0 bg-[rgba(0,0,0,0.52)] flex justify-center">
+          {" "}
+          <div className="my-auto border rounded bg-white p-5">
+            <Create_Product />
+          </div>
+        </section>
+
         <section className="grid grid-cols-2 p-2">
           <div className="flex space-x-1">
             <div>
