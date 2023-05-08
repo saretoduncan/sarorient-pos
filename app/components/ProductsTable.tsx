@@ -5,9 +5,6 @@ import { RiDeleteBin6Fill } from "react-icons/ri";
 import Create_Product from "./Create_Product";
 import { useProductFormStore, useStoreChangeFormPurpose } from "@/store";
 const Products_table: React.FC<{}> = () => {
-  // const openCreateProductForm = useProductFormStore(
-  //   (state) => state.toggleForm
-  // );]
   const openCreateForm = useProductFormStore((state) => state.toggleForm);
   const isUpdateForm = useStoreChangeFormPurpose((state) => state.toggleForm);
   const openCreateProductForm = () => {
