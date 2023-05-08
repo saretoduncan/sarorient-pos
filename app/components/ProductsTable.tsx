@@ -7,14 +7,11 @@ import { useProductFormStore, useStoreChangeFormPurpose } from "@/store";
 const Products_table: React.FC<{}> = () => {
   const openCreateForm = useProductFormStore((state) => state.toggleForm);
   const isUpdateForm = useStoreChangeFormPurpose((state) => state.toggleForm);
-  const openCreateProductForm = () => {
-    isUpdateForm(false);
+  const openCreateProductForm = (isUpdate: boolean) => {
+    isUpdateForm(isUpdate);
     openCreateForm(true);
   };
-  const openUpdateProductForm = () => {
-    isUpdateForm(true);
-    openCreateForm(true);
-  };
+
   return (
     <>
       <main className="relative h-screen">
@@ -47,7 +44,7 @@ const Products_table: React.FC<{}> = () => {
           <div className="grid">
             <button
               className="bg-green-600 px-1 py-1   rounded justify-self-end text-sm font-bold text-white"
-              onClick={() => openCreateProductForm()}
+              onClick={() => openCreateProductForm(false)}
             >
               Create Products
             </button>
@@ -80,7 +77,7 @@ const Products_table: React.FC<{}> = () => {
 
                 <td className=" flex space-x-1">
                   {" "}
-                  <button onClick={openUpdateProductForm}>
+                  <button onClick={() => openCreateProductForm(true)}>
                     <BiEdit className="text-md  text-green-500 self-center my-auto" />
                   </button>
                   <button>
