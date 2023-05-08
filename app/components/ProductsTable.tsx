@@ -51,7 +51,7 @@ const Products_table: React.FC<{}> = () => {
           </div>
         </section>
         <section className="mx-1 border-x  bg-white">
-          <table className="w-[100%] border-1 ">
+          <table className="w-[100%] table-auto  border-gray-300">
             <thead className="bg-gray-300 text-sm md:text-[15px] border-b">
               <tr>
                 <th className="text-start">Product Name</th>
