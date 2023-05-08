@@ -3,13 +3,21 @@ import React from "react";
 import { BiEdit, BiSearchAlt2 } from "react-icons/bi";
 import { RiDeleteBin6Fill } from "react-icons/ri";
 import Create_Product from "./Create_Product";
-import { useProductFormStore } from "@/store";
+import { useProductFormStore, useStoreChangeFormPurpose } from "@/store";
 const Products_table: React.FC<{}> = () => {
-  const openCreateProductForm = useProductFormStore(
-    (state) => state.toggleForm
-  );
-
-  const formState = useProductFormStore.getState().form_open;
+  // const openCreateProductForm = useProductFormStore(
+  //   (state) => state.toggleForm
+  // );]
+  const openCreateForm = useProductFormStore((state) => state.toggleForm);
+  const isUpdateForm = useStoreChangeFormPurpose((state) => state.toggleForm);
+  const openCreateProductForm = () => {
+    isUpdateForm(false);
+    openCreateForm(true);
+  };
+  const openUpdateProductForm = () => {
+    isUpdateForm(true);
+    openCreateForm(true);
+  };
   return (
     <>
       <main className="relative h-screen">
@@ -42,7 +50,7 @@ const Products_table: React.FC<{}> = () => {
           <div className="grid">
             <button
               className="bg-green-600 px-1 py-1   rounded justify-self-end text-sm font-bold text-white"
-              onClick={() => openCreateProductForm(true)}
+              onClick={() => openCreateProductForm()}
             >
               Create Products
             </button>
@@ -75,8 +83,12 @@ const Products_table: React.FC<{}> = () => {
 
                 <td className=" flex space-x-1">
                   {" "}
-                  <BiEdit className="text-md  text-green-500 self-center my-auto" />
-                  <RiDeleteBin6Fill className="text-md  text-red-500 self-center my-auto" />
+                  <button onClick={openUpdateProductForm}>
+                    <BiEdit className="text-md  text-green-500 self-center my-auto" />
+                  </button>
+                  <button>
+                    <RiDeleteBin6Fill className="text-md  text-red-500 self-center my-auto" />
+                  </button>
                 </td>
               </tr>
               <tr className="border-b">
@@ -90,8 +102,12 @@ const Products_table: React.FC<{}> = () => {
 
                 <td className=" flex space-x-1">
                   {" "}
-                  <BiEdit className="text-md  text-green-500 self-center my-auto" />
-                  <RiDeleteBin6Fill className="text-md  text-red-500 self-center my-auto" />
+                  <button>
+                    <BiEdit className="text-md  text-green-500 self-center my-auto" />
+                  </button>
+                  <button>
+                    <RiDeleteBin6Fill className="text-md  text-red-500 self-center my-auto" />
+                  </button>
                 </td>
               </tr>
               <tr className="border-b">

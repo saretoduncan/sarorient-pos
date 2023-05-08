@@ -1,7 +1,7 @@
 "use client";
 import { SubmitHandler, useForm } from "react-hook-form";
 import { IProduct } from "../interfaces/IProducts";
-import { useProductFormStore } from "@/store";
+import { useProductFormStore, useStoreChangeFormPurpose } from "@/store";
 import { AiFillCloseCircle } from "react-icons/ai";
 export default function Create_Product() {
   const {
@@ -14,6 +14,8 @@ export default function Create_Product() {
   const handleSubmitProduct: SubmitHandler<IProduct> = (productInfo) => {
     console.log(productInfo);
   };
+  const isUpdate = useStoreChangeFormPurpose((state) => state.isUpdate);
+
   return (
     <>
       <section className="relative">
@@ -22,7 +24,9 @@ export default function Create_Product() {
             <AiFillCloseCircle className="text-red-500 text-[24px]" />
           </button>
         </div>
-        <h3 className="font-bold text-lg">Add new product</h3>
+        <h3 className="font-bold text-lg">{`${
+          isUpdate ? "Update product" : "Add new product"
+        }`}</h3>
         <div>
           <form onSubmit={handleSubmit(handleSubmitProduct)}>
             <div className="flex flex-col mb-3">
@@ -143,7 +147,7 @@ export default function Create_Product() {
                 type="submit"
                 className="bg-blue-600 rounded text-white py-1 w-full"
               >
-                Create Product
+                {`${isUpdate ? "Update Product" : "Create Product"}`}
               </button>
             </div>
           </form>
