@@ -1,4 +1,5 @@
 import Ordered_products from "@/app/components/Ordered_products";
+import Search_bar from "@/app/components/Search_bar";
 import React from "react";
 
 const page = () => {
@@ -7,7 +8,7 @@ const page = () => {
       <main className="grid grid-cols-6 h-screen pt-3">
         <section className="col-span-4  px-2">
           <div className="bg-gray-800 ps-2 py-2">
-            <h4 className="text-white font-bold">ORDERED PRODUCTS</h4>
+           <Search_bar/>
           </div>
           <Ordered_products />
         </section>
