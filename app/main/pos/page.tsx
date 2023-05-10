@@ -16,6 +16,9 @@ const page = () => {
           <div className="ps-2 py-3 bg-green-600">
             <h5 className="text-white font-bold">Total: 0.00</h5>
           </div>
+          <div>
+            <h5>Payment method</h5>
+          </div>
         </section>
       </main>
     </>
