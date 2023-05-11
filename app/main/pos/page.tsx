@@ -28,7 +28,7 @@ const page = () => {
                 <input
                   type="number"
                   id="payment"
-                  className=" ring-1 ring-green-100 focus:border-none focus:outline-none focus:ring-2 rounded focus:ring-green-400"
+                  className=" ring-1 ring-green-100 focus:border-none focus:outline-none focus:ring-2 rounded focus:ring-green-400 px-2"
                 />
               </div>
               <div className="flex flex-col">
@@ -36,9 +36,12 @@ const page = () => {
                 <input
                   type="number"
                   id="change"
-                  className=" ring-1 ring-green-100 focus:border-none focus:outline-none focus:ring-2 rounded focus:ring-green-400"
+                  className=" ring-1 ring-green-100 focus:border-none focus:outline-none focus:ring-2 rounded focus:ring-green-400 px-2"
                 />
               </div>
+            </div>
+            <div className="px-2 mt-3">
+              <button className="text-white bg-blue-500 w-[100%] rounded py-1 font-bold">save</button>
             </div>
           </div>
         </section>

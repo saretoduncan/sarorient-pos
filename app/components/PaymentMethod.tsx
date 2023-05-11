@@ -1,4 +1,4 @@
-'use client'
+"use client";
 import { useState, useEffect } from "react";
 export default function PaymentMethod() {
   const [selectedOption, setSelectedOption] = useState("");
@@ -33,6 +33,7 @@ export default function PaymentMethod() {
           />
           <label htmlFor="mpesa">M-pesa</label>
         </div>
+       
       </div>
     </>
   );
