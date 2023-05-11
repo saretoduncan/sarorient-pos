@@ -147,7 +147,7 @@ export default function Create_Product() {
                 type="submit"
                 className="bg-blue-600 rounded text-white py-1 w-full"
               >
-                {`${isUpdate ? "Update Product" : "Create Product"}`}
+                {`${isUpdate ? "Update Product": "Create Product"}`}
               </button>
             </div>
           </form>
