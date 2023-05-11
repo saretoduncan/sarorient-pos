@@ -1,13 +1,30 @@
 "use client";
+import { usePaymentMethodStore } from "@/store";
 import { useState, useEffect } from "react";
 export default function PaymentMethod() {
   const [selectedOption, setSelectedOption] = useState("");
   const handleOptionChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     setSelectedOption(event.target.value);
   };
+  const setIsMpesa = usePaymentMethodStore(
+    (state) => state.togglePaymentMethod
+  );
+  const onStart = () => {
+    setSelectedOption("cash");
+    // setIsMpesa(false);
+  };
   useEffect(() => {
-    setSelectedOption(() => "cash");
+    onStart();
   }, []);
+
+  useEffect(() => {
+    if (selectedOption === "cash") {
+      setIsMpesa(false);
+    } else if (selectedOption === "mpesa") {
+      setIsMpesa(true);
+    }
+  }, [selectedOption]);
+
   return (
     <>
       <div className="flex space-x-2">
@@ -33,7 +50,6 @@ export default function PaymentMethod() {
           />
           <label htmlFor="mpesa">M-pesa</label>
         </div>
-       
       </div>
     </>
   );
