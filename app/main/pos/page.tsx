@@ -22,6 +22,24 @@ const page = () => {
               <h5>Payment Method</h5>
               <PaymentMethod />
             </div>
+            <div className="px-2 ">
+              <div className="flex flex-col">
+                <label htmlFor="payment">Payment</label>
+                <input
+                  type="number"
+                  id="payment"
+                  className=" ring-1 ring-green-100 focus:border-none focus:outline-none focus:ring-2 rounded focus:ring-green-400"
+                />
+              </div>
+              <div className="flex flex-col">
+                <label htmlFor="change">Change</label>
+                <input
+                  type="number"
+                  id="change"
+                  className=" ring-1 ring-green-100 focus:border-none focus:outline-none focus:ring-2 rounded focus:ring-green-400"
+                />
+              </div>
+            </div>
           </div>
         </section>
       </main>
