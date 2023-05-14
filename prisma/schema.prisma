@@ -25,3 +25,18 @@ model User {
   createdAt   DateTime @default(now())
   updateAt    DateTime @updatedAt
 }
+
+model Product {
+  id String @id @default(uuid())
+  productName String
+  code String
+  brand String
+  buyingPrice Float
+  sellingPrice Float
+  Qty Int
+  unit String @default("PC")
+}
+
+// model SoldProducts {
+  
+// }
