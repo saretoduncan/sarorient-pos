@@ -22,7 +22,7 @@ model User {
   phoneNumber   String?
   password      String
   role          Role           @default(EDITOR)
-  active        Boolean        @default(true)
+  isActive      Boolean        @default(true)
   addedProducts Product[]
   soldProducts  SoldProducts[]
   createdAt     DateTime       @default(now())
