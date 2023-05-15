@@ -20,7 +20,7 @@ export async function POST(req: Request) {
   if (!user)
     return NextResponse.json(
       { message: "user is not registered with us" },
-      { status: 404 }
+      { status: 400 }
     );
   const isCorrectPassword = await bycrypt.compare(user.password, password);
   if (isCorrectPassword)
