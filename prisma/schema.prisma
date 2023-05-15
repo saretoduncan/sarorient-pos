@@ -15,7 +15,7 @@ enum Role {
   ADMIN
 }
 
-model User {
+model Users {
   id            String         @id @default(uuid())
   username      String         @unique
   email         String?        @unique
@@ -38,7 +38,7 @@ model Product {
   sellingPrice Float
   Qty          Int
   unit         String         @default("PC")
-  User         User?          @relation(fields: [userId], references: [id])
+  User         Users?          @relation(fields: [userId], references: [id])
   userId       String?
   soldProducts SoldProducts[]
   createdAt    DateTime       @default(now())
@@ -52,7 +52,7 @@ model SoldProducts {
   remainingQty Int
   Product      Product? @relation(fields: [productId], references: [id])
   productId    String?
-  soldBy       User?    @relation(fields: [userId], references: [id])
+  soldBy       Users?    @relation(fields: [userId], references: [id])
   userId       String?
   createdAt    DateTime @default(now())
   updateAt     DateTime @updatedAt

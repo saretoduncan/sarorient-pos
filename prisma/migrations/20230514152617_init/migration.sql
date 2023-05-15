@@ -2,7 +2,7 @@
 CREATE TYPE "Role" AS ENUM ('EDITOR', 'ADMIN');
 
 -- CreateTable
-CREATE TABLE "User" (
+CREATE TABLE "Users" (
     "id" TEXT NOT NULL,
     "username" TEXT NOT NULL,
     "email" TEXT,
@@ -13,7 +13,7 @@ CREATE TABLE "User" (
     "createdAt" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,
     "updateAt" TIMESTAMP(3) NOT NULL,
 
-    CONSTRAINT "User_pkey" PRIMARY KEY ("id")
+    CONSTRAINT "Users_pkey" PRIMARY KEY ("id")
 );
 
 -- CreateTable
@@ -48,16 +48,16 @@ CREATE TABLE "SoldProducts" (
 );
 
 -- CreateIndex
-CREATE UNIQUE INDEX "User_username_key" ON "User"("username");
+CREATE UNIQUE INDEX "Users_username_key" ON "Users"("username");
 
 -- CreateIndex
-CREATE UNIQUE INDEX "User_email_key" ON "User"("email");
+CREATE UNIQUE INDEX "Users_email_key" ON "Users"("email");
 
 -- AddForeignKey
-ALTER TABLE "Product" ADD CONSTRAINT "Product_userId_fkey" FOREIGN KEY ("userId") REFERENCES "User"("id") ON DELETE SET NULL ON UPDATE CASCADE;
+ALTER TABLE "Product" ADD CONSTRAINT "Product_userId_fkey" FOREIGN KEY ("userId") REFERENCES "Users"("id") ON DELETE SET NULL ON UPDATE CASCADE;
 
 -- AddForeignKey
 ALTER TABLE "SoldProducts" ADD CONSTRAINT "SoldProducts_productId_fkey" FOREIGN KEY ("productId") REFERENCES "Product"("id") ON DELETE SET NULL ON UPDATE CASCADE;
 
 -- AddForeignKey
-ALTER TABLE "SoldProducts" ADD CONSTRAINT "SoldProducts_userId_fkey" FOREIGN KEY ("userId") REFERENCES "User"("id") ON DELETE SET NULL ON UPDATE CASCADE;
+ALTER TABLE "SoldProducts" ADD CONSTRAINT "SoldProducts_userId_fkey" FOREIGN KEY ("userId") REFERENCES "Users"("id") ON DELETE SET NULL ON UPDATE CASCADE;
