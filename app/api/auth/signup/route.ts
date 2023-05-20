@@ -1,4 +1,5 @@
 import { ISignup } from "@/app/interfaces/ISignup";
+import { IUserResponse } from "@/app/interfaces/IUserResponse";
 import { hashPass, prisma } from "@/app/utils/utils";
 import { NextResponse } from "next/server";
 export async function POST(req: Request) {
@@ -54,7 +55,7 @@ export async function POST(req: Request) {
           username: username,
           phoneNumber: phoneNumber,
           email: email,
-        },
+        }
       });
       return NextResponse.json({ data: registerUser }, { status: 200 });
     }

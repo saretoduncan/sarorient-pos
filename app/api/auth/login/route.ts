@@ -2,6 +2,7 @@ import { NextResponse } from "next/server";
 import { ILogin } from "../../../interfaces/frontendInterface/ILogin";
 import { prisma } from "../../../utils/utils";
 import bycrypt from "bcrypt";
+import { IUserResponse } from "@/app/interfaces/IUserResponse";
 export async function POST(req: Request) {
   const { username, password }: ILogin = await req.json();
   if (!username || username === "")
@@ -28,7 +29,7 @@ export async function POST(req: Request) {
       { message: "You've entered a wrong password or username" },
       { status: 401 }
     );
-  return NextResponse.json(user);
+  return NextResponse.json(user, { status: 201 });
 }
 // export async function GET() {}
 // export async function PATCH() {}
