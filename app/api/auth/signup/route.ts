@@ -2,6 +2,7 @@ import { ISignup } from "@/app/interfaces/ISignup";
 import { IUserResponse } from "@/app/interfaces/IUserResponse";
 import { hashPass, prisma } from "@/app/utils/utils";
 import { NextResponse } from "next/server";
+import jwt from "jsonwebtoken";
 export async function POST(req: Request) {
   const {
     username,

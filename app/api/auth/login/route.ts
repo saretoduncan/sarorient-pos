@@ -30,8 +30,8 @@ export async function POST(req: Request) {
   });
   if (passcode == null || !passcode)
     return NextResponse.json("user doesnt have a passcode");
-  const isCorrectPassword = await bycrypt.compare(passcode.id, password);
-  if (isCorrectPassword)
+  const isCorrectPassword = await bycrypt.compare(password, passcode.password);
+  if (!isCorrectPassword)
     return NextResponse.json(
       { message: "You've entered a wrong password or username" },
       { status: 401 }
