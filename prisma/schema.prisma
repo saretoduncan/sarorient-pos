@@ -18,15 +18,23 @@ enum Role {
 model Users {
   id            String         @id @default(uuid())
   username      String         @unique
-  email         String?        @unique
+  email         String?        @unique 
+  passwordId    Passwords?
   phoneNumber   String?
-  password      String         
   role          Role           @default(EDITOR)
   isActive      Boolean        @default(true)
   addedProducts Product[]
   soldProducts  SoldProducts[]
   createdAt     DateTime       @default(now())
   updateAt      DateTime       @updatedAt
+}
+
+model Passwords {
+  id       String @id @default(uuid())
+  password String
+  
+  user     Users @relation(fields: [userId], references: [id])
+  userId String @unique()
 }
 
 model Product {

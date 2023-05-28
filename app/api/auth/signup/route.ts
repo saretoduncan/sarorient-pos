@@ -36,27 +36,35 @@ export async function POST(req: Request) {
       { status: 409 }
     );
   const hashPassword = await hashPass(password);
+  const createPassword = async (hashedPass: string, userId: string) => {
+    return await prisma.passwords.create({
+      data: {
+        password: hashedPass,
+        userId: userId,
+      },
+    });
+  };
   try {
     if (role?.toUpperCase() === "ADMIN") {
       const registerUser = await prisma.users.create({
         data: {
-          password: hashPassword,
           username: username,
           role: "ADMIN",
           phoneNumber: phoneNumber,
           email: email,
         },
       });
+      createPassword(hashPassword, registerUser.id);
       return NextResponse.json(registerUser, { status: 201 });
     } else {
       const registerUser = await prisma.users.create({
         data: {
-          password: hashPassword,
           username: username,
           phoneNumber: phoneNumber,
           email: email,
-        }
+        },
       });
+      createPassword(hashPassword, registerUser.id);
       return NextResponse.json({ data: registerUser }, { status: 200 });
     }
   } catch (e) {

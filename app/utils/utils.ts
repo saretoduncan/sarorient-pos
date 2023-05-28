@@ -7,10 +7,5 @@ export const hashPass = async (password: string) => {
   const salt = await bycrpt.genSalt(10);
   return await bycrpt.hash(password, salt);
 };
-export function exclude(user:IUserResponse, ...keys:string[]) {
-  for (let key of keys) {
-    delete user[key]
-  }
-  return user
-}
+
 

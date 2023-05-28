@@ -1,8 +1,7 @@
 export interface IUserResponse {
   username: string;
-  phoneNumber: string;
-  email: string;
+  phoneNumber: string | null;
+  email: string | null;
   role: string;
-  password:string,
-  id:string
+  id: string;
 }

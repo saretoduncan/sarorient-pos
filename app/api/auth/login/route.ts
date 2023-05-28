@@ -18,17 +18,25 @@ export async function POST(req: Request) {
   const user = await prisma.users.findUnique({
     where: { username: username },
   });
+
   if (!user)
     return NextResponse.json(
       { message: "user is not registered with us" },
       { status: 400 }
     );
-  const isCorrectPassword = await bycrypt.compare(user.password, password);
+
+  const passcode = await prisma.passwords.findUnique({
+    where: { userId: user.id },
+  });
+  if (passcode == null || !passcode)
+    return NextResponse.json("user doesnt have a passcode");
+  const isCorrectPassword = await bycrypt.compare(passcode.id, password);
   if (isCorrectPassword)
     return NextResponse.json(
       { message: "You've entered a wrong password or username" },
       { status: 401 }
     );
+
   return NextResponse.json(user, { status: 201 });
 }
 // export async function GET() {}
