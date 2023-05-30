@@ -2,7 +2,8 @@ import { NextResponse } from "next/server";
 import { ILogin } from "../../../interfaces/frontendInterface/ILogin";
 import { prisma } from "../../../utils/utils";
 import bycrypt from "bcrypt";
-import { IUserResponse } from "@/app/interfaces/IUserResponse";
+import jwt from "jsonwebtoken";
+import { headers } from "next/dist/client/components/headers";
 export async function POST(req: Request) {
   const { username, password }: ILogin = await req.json();
   if (!username || username === "")
@@ -36,8 +37,27 @@ export async function POST(req: Request) {
       { message: "You've entered a wrong password or username" },
       { status: 401 }
     );
-
-  return NextResponse.json(user, { status: 201 });
+  const token = jwt.sign(
+    { _id: user.id, role: user.role },
+    process.env.JWT_SECRET as string,
+    {
+      expiresIn: "120s",
+    }
+  );
+  const refresherToken = jwt.sign(
+    { _id: user.id, role: user.role },
+    process.env.JWT_REFRESHER_SECRET as string,
+    { expiresIn: "7200s" }
+  );
+  const res = NextResponse.json({ ...user, _token: token }, { status: 201 });
+  res.cookies.set({
+    name: "refresh_token",
+    value: refresherToken,
+    httpOnly: true,
+    maxAge: 60 * 60 * 2,
+    path: "/",
+  });
+  return res;
 }
 // export async function GET() {}
 // export async function PATCH() {}

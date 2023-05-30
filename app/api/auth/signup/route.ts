@@ -4,6 +4,7 @@ import { hashPass, prisma } from "@/app/utils/utils";
 import { NextResponse } from "next/server";
 import jwt from "jsonwebtoken";
 export async function POST(req: Request) {
+
   const {
     username,
     password,
@@ -66,7 +67,8 @@ export async function POST(req: Request) {
         },
       });
       createPassword(hashPassword, registerUser.id);
-      return NextResponse.json({ data: registerUser }, { status: 200 });
+      const token = jwt.sign({_id:registerUser.id, _role:registerUser.role}, process.env.JWT_SECRET!)
+      return NextResponse.json({ data: registerUser, _token:token }, { status: 200 });
     }
   } catch (e) {
     return NextResponse.json(e);
