@@ -37,7 +37,7 @@ export async function POST(req: Request) {
       { message: "You've entered a wrong password or username" },
       { status: 401 }
     );
-  const { access_token, refresh_token } = generateToken(user);
+  const { access_token, refresh_token } =  await generateToken(user.id, user.role);
   const res = NextResponse.json(
     { ...user, _token: access_token },
     { status: 201 }
