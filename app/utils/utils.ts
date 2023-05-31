@@ -12,7 +12,7 @@ export const hashPass = async (password: string) => {
 
 export const generateToken = async (userId: string, userRole: string) => {
   const iat = Math.floor(Date.now() / 1000);
-  const access_exp = iat + 60 * 2;
+  const access_exp = iat + 60 * 6;
   const refresher_exp = iat + 60 * 60 * 2;
   const _token = await new SignJWT({ userId, userRole })
     .setProtectedHeader({
@@ -40,11 +40,7 @@ export const generateToken = async (userId: string, userRole: string) => {
   };
   return tokens;
 };
-export const verifyToken = (token: string, secret: string) => {
-  try {
-    const ver = jwt.verify(token, secret);
-    return ver;
-  } catch (e) {
-    const error = console.log(JsonWebTokenError);
-  }
+export const verifyToken = async (token: string, secret: string) => {
+  const ver = await jwtVerify(token, new TextEncoder().encode(secret));
+  return ver;
 };
