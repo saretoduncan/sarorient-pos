@@ -44,3 +44,6 @@ export const verifyToken = async (token: string, secret: string) => {
   const ver = await jwtVerify(token, new TextEncoder().encode(secret));
   return ver;
 };
+export const separete_token = (token: string) => {
+  return token.split(" ")[1];
+};

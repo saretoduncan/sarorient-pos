@@ -14,8 +14,8 @@ export async function middleware(req: NextRequest) {
       );
     }
     try {
-      console.log(_token("Bearer kdfjaisdjfahsdjfiusdhfkdjflkjalksdjflkaj"))
-       await jwtVerify(
+     
+      await jwtVerify(
         refreshToken,
         new TextEncoder().encode(process.env.JWT_REFRESHER_SECRET as string)
       );
@@ -38,5 +38,8 @@ export async function middleware(req: NextRequest) {
       });
       return res;
     }
+  }
+  if(req.url.includes("/api/")){
+
   }
 }

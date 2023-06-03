@@ -46,8 +46,8 @@ model Product {
   sellingPrice Float
   Qty          Int
   unit         String         @default("PC")
-  User         Users?         @relation(fields: [userId], references: [id])
-  userId       String?
+  addedBy         Users         @relation(fields: [userId], references: [id])
+  userId       String
   soldProducts SoldProducts[]
   createdAt    DateTime       @default(now())
   updateAt     DateTime       @updatedAt

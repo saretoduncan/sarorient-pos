@@ -2,8 +2,7 @@ import { NextResponse } from "next/server";
 import { ILogin } from "../../../interfaces/frontendInterface/ILogin";
 import { generateToken, prisma } from "../../../utils/utils";
 import bycrypt from "bcrypt";
-import jwt from "jsonwebtoken";
-import { headers } from "next/dist/client/components/headers";
+
 export async function POST(req: Request) {
   const { username, password }: ILogin = await req.json();
   if (!username || username === "")

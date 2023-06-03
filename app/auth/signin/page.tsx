@@ -1,8 +1,9 @@
 "use client";
-import React from "react";
+import React, { useEffect } from "react";
 import { SubmitHandler, useForm } from "react-hook-form";
-import logo from "../../public/pos_logo.png";
-import { ILogin } from "../interfaces/frontendInterface/ILogin";
+import logo from "../../../public/pos_logo.png";
+import { ILogin } from "../../interfaces/frontendInterface/ILogin";
+import { signIn, useSession } from "next-auth/react";
 
 const Login: React.FC<{}> = () => {
   const {
@@ -10,9 +11,27 @@ const Login: React.FC<{}> = () => {
     handleSubmit,
     formState: { errors },
   } = useForm<ILogin>();
+const {data} = useSession()
+useEffect(() => {
+  // Check if the user is already signed in
+  if (data) {
+    // Handle the signed-in user as desired
+    console.log('User is signed in:', data.user);
+  }
+}, [data]);
+  const handleLoginSubmit: SubmitHandler<ILogin> = async (loginInfo, e) => {
+    const { username, password } = loginInfo;
+    try {
+      const results = await signIn("Credentials", {
+     
+        username: username,
+        password: password,
+      });
+    } catch (e) {
+      console.log(e);
+    }
 
-  const handleLoginSubmit: SubmitHandler<ILogin> = (loginInfo) => {
-    console.log(loginInfo);
+    console.log({ username, password });
   };
   return (
     <>
