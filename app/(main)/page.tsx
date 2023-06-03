@@ -3,9 +3,12 @@ import Ordered_products from "@/app/components/Ordered_products";
 import PaymentMethod from "@/app/components/PaymentMethod";
 import Search_bar from "@/app/components/Search_bar";
 import { usePaymentMethodStore } from "@/store";
-
+import { useSession } from "next-auth/react";
 import { BsCash } from "react-icons/bs";
 const page = () => {
+  const {status} = useSession()
+  console.log(status)
+
   return (
     <>
       <main className="grid grid-cols-6 h-screen pt-3">

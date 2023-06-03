@@ -1,38 +1,44 @@
 "use client";
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { SubmitHandler, useForm } from "react-hook-form";
-import logo from "../../../public/pos_logo.png";
-import { ILogin } from "../../interfaces/frontendInterface/ILogin";
+import logo from "../../../../public/pos_logo.png";
+import { ILogin } from "../../../interfaces/frontendInterface/ILogin";
 import { signIn, useSession } from "next-auth/react";
-
+import { toast } from "react-toastify";
+import { useRouter } from "next/navigation";
 const Login: React.FC<{}> = () => {
+  const [errorMsg, setErrorMsg] = useState("");
   const {
     register,
     handleSubmit,
     formState: { errors },
   } = useForm<ILogin>();
-const {data} = useSession()
-useEffect(() => {
-  // Check if the user is already signed in
-  if (data) {
-    // Handle the signed-in user as desired
-    console.log('User is signed in:', data.user);
-  }
-}, [data]);
+  const { data: session, status } = useSession();
+  const { push } = useRouter();
   const handleLoginSubmit: SubmitHandler<ILogin> = async (loginInfo, e) => {
     const { username, password } = loginInfo;
-    try {
-      const results = await signIn("Credentials", {
-     
-        username: username,
-        password: password,
-      });
-    } catch (e) {
-      console.log(e);
-    }
 
-    console.log({ username, password });
+    const results = await signIn("credentials", {
+      username: username,
+      password: password,
+    });
+    if (results && results.error) {
+      setErrorMsg(results.error);
+    } else {
+      setErrorMsg("");
+      console.log(results);
+      console.log("user ...... " + session?.user.id);
+      push("/");
+    }
   };
+  useEffect(() => {
+    console.log(status);
+    console.log("username ----" + session?.user.accessToken);
+    console.log(session?.expires);
+    if (status === "authenticated") {
+      push("/");
+    }
+  }, [session]);
   return (
     <>
       <section className="grid w-screen h-screen">
@@ -46,6 +52,7 @@ useEffect(() => {
             <figcaption className="text-center">Sarorient POS</figcaption>
           </figure>
           <div>
+            <span className="text-red-500 text-sm">{errorMsg}</span>
             <form onSubmit={handleSubmit(handleLoginSubmit)}>
               <div className="flex flex-col mb-3">
                 <label htmlFor="username">Username</label>

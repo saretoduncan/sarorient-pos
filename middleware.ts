@@ -1,10 +1,24 @@
 import { jwtVerify } from "jose";
+import { getServerSession } from "next-auth/next";
+
 import { NextRequest, NextResponse } from "next/server";
+// export { default } from "next-auth/middleware";
 
 const _token = (token: string) => {
   return token.split(" ")[1];
 };
+
+
 export async function middleware(req: NextRequest) {
+  if (req.nextUrl.pathname === "/auth/signin") {
+    const requestHeader = new Headers(req.headers);
+    requestHeader.set("path_value", req.nextUrl.pathname);
+    return NextResponse.next({
+      request: {
+        headers: requestHeader,
+      },
+    });
+  }
   if (req.url.includes("/api/auth/refreshtoken")) {
     const refreshToken = req.cookies.get("refresh_token")?.value;
     if (!refreshToken) {
@@ -14,7 +28,6 @@ export async function middleware(req: NextRequest) {
       );
     }
     try {
-     
       await jwtVerify(
         refreshToken,
         new TextEncoder().encode(process.env.JWT_REFRESHER_SECRET as string)
@@ -39,7 +52,6 @@ export async function middleware(req: NextRequest) {
       return res;
     }
   }
-  if(req.url.includes("/api/")){
-
+  if (req.url.includes("/api/")) {
   }
 }
