@@ -42,6 +42,7 @@ const authOptions: NextAuthOptions = {
         const token = await generateToken(user.id, user.role);
         const accessToken = token.access_token;
         const authUser = { ...user, accessToken };
+        console.log(authUser)
         return authUser;
       },
     }),

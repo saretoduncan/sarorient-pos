@@ -6,8 +6,8 @@ import { usePaymentMethodStore } from "@/store";
 import { useSession } from "next-auth/react";
 import { BsCash } from "react-icons/bs";
 const page = () => {
-  const {status} = useSession()
-  console.log(status)
+  const {data:session,status} = useSession()
+  console.log(session)
 
   return (
     <>
