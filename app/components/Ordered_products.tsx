@@ -1,4 +1,4 @@
-import { BiEdit } from "react-icons/bi";
+
 import { IoMdClose } from "react-icons/io";
 
 export default function Ordered_products() {

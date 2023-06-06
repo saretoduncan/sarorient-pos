@@ -2,12 +2,17 @@
 import Ordered_products from "@/app/components/Ordered_products";
 import PaymentMethod from "@/app/components/PaymentMethod";
 import Search_bar from "@/app/components/Search_bar";
+
 import { usePaymentMethodStore } from "@/store";
 import { useSession } from "next-auth/react";
+import jwt_decode from "jwt-decode";
 import { BsCash } from "react-icons/bs";
-const page = () => {
-  const {data:session,status} = useSession()
-  console.log(session)
+import { useRefreshToken } from "@/lib/apiHooks/useRefreshToken";
+const page = async () => {
+  // const { data: session, status } = useSession();
+  // let authtoken = session?.user.accessToken;
+  const token = useRefreshToken();
+  console.log(token);
 
   return (
     <>

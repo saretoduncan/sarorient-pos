@@ -3,8 +3,13 @@ import { loginSchema } from "@/lib/validation";
 import { PrismaAdapter } from "@next-auth/prisma-adapter";
 import { NextAuthOptions } from "next-auth";
 import NextAuth from "next-auth";
+import { NextResponse } from "next/server";
+
 import CredentialsProvider from "next-auth/providers/credentials";
 import bcrypt from "bcrypt";
+import { ResponseCookie } from "next/dist/compiled/@edge-runtime/cookies";
+import { setCookie } from "cookies-next";
+import { cookies } from "next/headers";
 const authOptions: NextAuthOptions = {
   adapter: PrismaAdapter(prisma),
 
@@ -15,6 +20,7 @@ const authOptions: NextAuthOptions = {
       async authorize(credentials, req) {
         // console.log(credentials);
         const { username, password } = loginSchema.parse(credentials);
+
         const user = await prisma.users.findUnique({
           where: {
             username: username,
@@ -41,9 +47,13 @@ const authOptions: NextAuthOptions = {
         }
         const token = await generateToken(user.id, user.role);
         const accessToken = token.access_token;
+
         const authUser = { ...user, accessToken };
-        
-        console.log(authUser)
+        cookies().set({
+          name: "refresh_token",
+          value: token.refresh_token,
+        });
+        console.log(authUser);
         return authUser;
       },
     }),
@@ -53,7 +63,6 @@ const authOptions: NextAuthOptions = {
   },
   callbacks: {
     async jwt({ token, user, trigger, session }) {
-      
       return { ...token, ...user };
     },
     async session({ session, token }) {
@@ -64,8 +73,7 @@ const authOptions: NextAuthOptions = {
 
   session: {
     strategy: "jwt",
-    maxAge:2 * 60 * 60,
-    
+    maxAge: 2 * 60 * 60,
   },
 };
 const handler = NextAuth(authOptions);
