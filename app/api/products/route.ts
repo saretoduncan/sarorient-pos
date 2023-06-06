@@ -4,7 +4,7 @@ import { NextResponse } from "next/server";
 export async function POST(req: Request) {
   const { product, brand, code, price, buyingPrice, quantity }: Products =
     await req.json();
-  const token = separete_token(req.headers.get("authorization") as string);
+  const token = separete_token(req.headers.get("Authorization") as string);
   const { payload } = await verifyToken(
     token,
     process.env.JWT_SECRET as string

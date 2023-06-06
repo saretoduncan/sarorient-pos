@@ -42,6 +42,7 @@ const authOptions: NextAuthOptions = {
         const token = await generateToken(user.id, user.role);
         const accessToken = token.access_token;
         const authUser = { ...user, accessToken };
+        
         console.log(authUser)
         return authUser;
       },
@@ -52,6 +53,7 @@ const authOptions: NextAuthOptions = {
   },
   callbacks: {
     async jwt({ token, user, trigger, session }) {
+      
       return { ...token, ...user };
     },
     async session({ session, token }) {
@@ -62,6 +64,8 @@ const authOptions: NextAuthOptions = {
 
   session: {
     strategy: "jwt",
+    maxAge:2 * 60 * 60,
+    
   },
 };
 const handler = NextAuth(authOptions);

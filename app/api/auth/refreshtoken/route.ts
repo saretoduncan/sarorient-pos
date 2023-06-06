@@ -48,6 +48,14 @@ export async function POST() {
       path: "/",
       expires: new Date(0),
     });
+    res.cookies.set({
+      name: "next-auth.session-token",
+      value: "",
+      httpOnly: true,
+      maxAge: 0,
+      path: "/",
+      expires: new Date(0),
+    });
     return res;
   }
 }
