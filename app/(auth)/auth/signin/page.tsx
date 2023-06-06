@@ -21,6 +21,7 @@ const Login: React.FC<{}> = () => {
     const results = await signIn("credentials", {
       username: username,
       password: password,
+      redirect:false
     });
     if (results && results.error) {
       setErrorMsg(results.error);

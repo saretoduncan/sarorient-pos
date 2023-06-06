@@ -1,13 +1,13 @@
 "use client";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import React from "react";
+import React, { useState } from "react";
 import { FiLogOut } from "react-icons/fi";
 import { GiIceCube } from "react-icons/gi";
 import { HiOutlineDocumentReport, HiServer, HiUsers } from "react-icons/hi";
 import logo from "../../public/pos_logo.png";
 import profile from "../../public/profile_pic.jpg";
-import { signOut } from "next-auth/react";
+import { signOut, useSession } from "next-auth/react";
 import { useRouter } from "next/navigation";
 /**
  *
@@ -15,14 +15,16 @@ import { useRouter } from "next/navigation";
  * @returns
  */
 const SideBar = () => {
+  const { data: session, status } = useSession();
+  const [] = useState();
   const { push } = useRouter();
   const pathName = usePathname();
   const logout = async () => {
     console.log("logout");
-     await signOut({
-      redirect:true,
-      callbackUrl:"/auth/signin"
-     });
+    await signOut({
+      redirect: true,
+      callbackUrl: "/auth/signin",
+    });
     push("/auth/signin");
   };
   return (
@@ -44,7 +46,9 @@ const SideBar = () => {
               alt="profile picture"
               className="w-[50px] h-[50px] rounded-[50%]"
             />
-            <figcaption className="self-center ps-2 text-sm">Tracy</figcaption>
+            <figcaption className="self-center ps-2 text-sm">
+              {session?.user.username}
+            </figcaption>
           </figure>
         </section>
         <section className="px-2 ">
