@@ -12,6 +12,6 @@ declare module "next-auth" {
       role: string;
       updateAt: Date;
       username: string;
-    } & Session["user"];
+    }
   }
 }
