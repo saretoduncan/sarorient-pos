@@ -8,11 +8,17 @@ import { useSession } from "next-auth/react";
 import jwt_decode from "jwt-decode";
 import { BsCash } from "react-icons/bs";
 import { useRefreshToken } from "@/lib/apiHooks/useRefreshToken";
+import { fetchInstance } from "@/lib/apiHooks/fetchInstance";
+import { useState } from "react";
 const page = async () => {
   // const { data: session, status } = useSession();
   // let authtoken = session?.user.accessToken;
-  const token = useRefreshToken();
-  console.log(token);
+  // const [data, setData] = useState();
+  const res = fetchInstance("/api/products", {method: "GET" });
+
+  console.log(res);
+  // const { token, refreshToken } = useRefreshToken();
+  // refreshToken();
 
   return (
     <>

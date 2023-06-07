@@ -1,4 +1,5 @@
 import { separete_token, prisma, verifyToken } from "@/app/utils/utils";
+import { verifyJwt } from "@/lib/jwtVerify";
 import { NextResponse } from "next/server";
 
 export async function POST(req: Request) {
@@ -32,11 +33,15 @@ export async function POST(req: Request) {
     console.log(e);
   }
 }
-export async function GET() {
-  const product = await prisma.product.findMany({
+export async function GET( req:Request) {
+  // const 
+  // await verifyJwt()
+     const verified = await verifyJwt(req)
+     console.log("verified...."+ verified.isVerified)
+  const products = await prisma.product.findMany({
     include: {
       addedBy: true,
     },
   });
-  return NextResponse.json({ product }, { status: 200 });
+  return NextResponse.json({ ...products }, { status: 200 });
 }

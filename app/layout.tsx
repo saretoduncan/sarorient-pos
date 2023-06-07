@@ -9,7 +9,7 @@ export const metadata = {
   title: "Point of sale",
   description: "create by sarorient ltd",
 };
-
+export const revalidate = 20;
 export default function RootLayout({
   children,
 }: {
