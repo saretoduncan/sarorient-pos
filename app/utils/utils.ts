@@ -12,7 +12,7 @@ export const hashPass = async (password: string) => {
 
 export const generateToken = async (userId: string, userRole: string) => {
   const iat = Math.floor(Date.now() / 1000);
-  const access_exp = iat + 60 * 2;
+  const access_exp = iat + 10;
   const refresher_exp = iat + 60 * 60 * 2;
   const _token = await new SignJWT({ userId, userRole })
     .setProtectedHeader({

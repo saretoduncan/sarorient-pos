@@ -2,13 +2,27 @@
 import dayjs from "dayjs";
 import jwt_decode from "jwt-decode";
 import { signOut, useSession } from "next-auth/react";
-import { useRefreshToken } from "./useRefreshToken";
+
 import { useEffect, useState } from "react";
 export function fetchInstance(url: string, config: RequestInit) {
-  const { data: session } = useSession();
+  const { data: session, update } = useSession();
   const [resData, setResData] = useState({});
-  // const [token, setToken] = useState("");
-  const { token, refreshToken } = useRefreshToken();
+
+  const makeRefreshToken = async () => {
+    try {
+      const res = await fetch("/api/refreshtoken", {
+        method: "POST",
+        credentials: "include",
+      });
+      if (res.status !== 401) {
+        return await res.json();
+      } else signOut();
+    } catch (e) {
+      console.log(e);
+    }
+
+    // return res
+  };
   let originalRequest = async (url: string, config: RequestInit) => {
     let response = await fetch(url, config)
       .then((res) => {
@@ -26,22 +40,14 @@ export function fetchInstance(url: string, config: RequestInit) {
   };
 
   let callFetch = async (url: string, config: RequestInit) => {
-    if (!session) return signOut();
-    const user: any = jwt_decode(session.user.accessToken);
-    const isExpired = dayjs.unix(user.exp).diff(dayjs()) < 1;
-    if (isExpired) {
-      console.log("is expired");
-      refreshToken();
-      console.log(token);
-
-      // console.log(token);
-      // session.user.accessToken = token;
-    }
+    let res: { access_token: string } = await makeRefreshToken();
+    console.log(res.access_token);
 
     config["headers"] = {
-      Authorization: `Bearer ${session.user.accessToken}`,
+      Authorization: `Bearer ${res.access_token}`,
     };
-    return await originalRequest(url, config);
+    const ress = await originalRequest(url, config);
+    return ress;
   };
 
   useEffect(() => {

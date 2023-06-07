@@ -20,6 +20,7 @@ export const verifyJwt = async (req: Request) => {
 
     return {
       isVerified: true,
+      userRole: payload.userRole,
     };
   } catch (e) {
     return { isVerified: false };

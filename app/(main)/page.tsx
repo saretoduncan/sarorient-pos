@@ -14,7 +14,7 @@ const page = async () => {
   // const { data: session, status } = useSession();
   // let authtoken = session?.user.accessToken;
   // const [data, setData] = useState();
-  const res = fetchInstance("/api/products", {method: "GET" });
+  const res = fetchInstance("/api/products", {method: "GET"});
 
   console.log(res);
   // const { token, refreshToken } = useRefreshToken();

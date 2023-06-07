@@ -33,11 +33,15 @@ export async function POST(req: Request) {
     console.log(e);
   }
 }
-export async function GET( req:Request) {
-  // const 
+export async function GET(req: Request) {
+  // const
   // await verifyJwt()
-     const verified = await verifyJwt(req)
-     console.log("verified...."+ verified.isVerified)
+  const verified = await verifyJwt(req);
+  if (!verified.isVerified)
+    return NextResponse.json(
+      { message: "you are not authorize " },
+      { status: 401 }
+    );
   const products = await prisma.product.findMany({
     include: {
       addedBy: true,
